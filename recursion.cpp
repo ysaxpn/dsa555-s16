@@ -55,3 +55,28 @@ unsigned int fib(unsigned int n){
 	return result;
 }
 
+double power(double base, int n){
+	double result;
+	if(n == 0){
+		result = 1;
+	}
+	else{
+		result = power(base,n/2);
+		result = result * result;
+		//if n is odd
+		if(n % 2 == 1){
+			result =result *base;
+		}
+	}
+}
+
+double power2(double base, int n){
+	double result;
+	if(n == 0){
+		result = 1;
+	}
+	else{
+		result = base*power2(base,n-1);
+	}
+	return result;
+}
