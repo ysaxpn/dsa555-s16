@@ -10,12 +10,11 @@ class SList{
 			next_=next;
 		}
 	};
-
 	Node* first_;
 	Node* last_;
-	
 public:
 	class iterator{
+		friend class SList;
 		Node* curr_;
 		SList* myList_;
 		iterator(Node* curr,SList* myList){
@@ -27,18 +26,49 @@ public:
 			curr_=nullptr;
 			myList_=nullptr;
 		}
-		T& operator*(){}
-		const T& operator*() const{}
-		iterator operator++(){}
-		iterator operator++(int){}
-		bool operator==(const iterator& other){}
-		bool operator!=(const iterator& other){}
+		T& operator*(){
+			return curr_->data_;
+		}
+		const T& operator*() const{
+			return curr_->data_;
+		}
+		iterator operator++(){
+			//++x
+			if(curr_){
+				curr_=curr_->next_;
+			}
+			return *this;
+		}
+		iterator operator++(int){
+			//x++
+			iterator old=*this;
+			if(curr_){
+				curr_=curr_->next_;
+			}
+			return old;
+		}
+		bool operator==(const iterator& other){
+			return other.curr_==curr_;
+		}
+		bool operator!=(const iterator& other){
+			return other.curr_!=curr_;
+		}
 	};
 	//creates empty linked list
-	SList(){}
+	SList(){
+		first_=last_=nullptr;
+	}
 	//insert node at front of list and return iterator
 	//to that node
-	iterator insertFront(const T& data){}
+	iterator insertFront(const T& data){
+		Node* nn=new Node(data,first_);
+		first_=nn;
+		if(first_->next_==nullptr){
+			last_=nn;
+		}
+		iterator rc(nn,this);
+		return rc;
+	}
 
 	//inserts a node after the node it refers to
 	//and returns iterator to newly added node
@@ -50,6 +80,6 @@ public:
 	void removeFront(){}
 	void remove(iterator& it){}
 	void removeBack(){}
-	iterator begin(){}
-	iterator end(){}
+	iterator begin(){return iterator(first_,this);}
+	iterator end(){return iterator(nullptr,this);}
 };
