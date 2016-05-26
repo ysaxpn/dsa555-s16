@@ -6,7 +6,7 @@ class DList{
 		T data_;
 		Node* next_;
 		Node* prev_;
-		Node(const T& data, Node* prev=nullptr, Node* next=nullptr){
+		Node(const T& data=T{}, Node* prev=nullptr, Node* next=nullptr){
 			data_=data;
 			next_=next;
 			prev_=prev;
@@ -73,20 +73,20 @@ public:
 	};
 	//creates empty linked list
 	DList(){
-		first_=last_=nullptr;
+		first_=new Node();
+		last_=new Node();
+		first_->next_=last_;
+		last_->prev_=first_;
 	}
 	//insert node at front of list and return iterator
 	//to that node
 	//O(1)
 	iterator insertFront(const T& data){
-		Node* nn=new Node(data,nullptr,first_);
-		if(first_==nullptr){
-			last_=nn;
-		}
-		else{
-			first_->prev_=nn;
-		}
-		first_=nn;
+		Node* firstData=begin().curr_;
+		Node* nn=new Node(data,first_,firstData);
+		firstData->prev_=nn;
+		first->next_=nn;
+
 
 		iterator rc(nn,this);
 		return rc;
@@ -95,6 +95,7 @@ public:
 	//and returns iterator to newly added node
 	//O(1)
 	iterator insertBack(const T& data){
+		
 		Node* nn=new Node(data,last_,nullptr);
 		if(last_==nullptr){
 			//empty list
@@ -193,6 +194,6 @@ public:
 		}
 
 	}
-	iterator begin(){return iterator(first_,this);}
-	iterator end(){return iterator(nullptr,this);}
+	iterator begin(){return iterator(first_->next_,this);}
+	iterator end(){return iterator(last_,this);}
 };
