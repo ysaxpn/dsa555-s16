@@ -133,64 +133,16 @@ public:
 
 	//O(1)
 	void removeFront(){
-		if(first_){
-			Node* tmp=first_;
-			first_=first_->next_;
-			if(first_==nullptr){
-				last_=nullptr;
 
-			}
-		}
-		delete tmp;
 	}
 	//O(n)
 	void remove(iterator& it){
-		if(it!= end() && it.myList_ == this){
-			Node* rm = it.curr_;
-			if(rm == first_){
-				removeFront();
-				/*
-				first_=first_->next_;
-				if(first_==nullptr){
-					last_=nullptr;
-				}
-				delete rm;
-				*/
-			}
-			else{
-				Node* curr=first_;
-				while(curr->next_!=rm){
-					curr=curr->next_;
-				}
-				curr->next_=rm->next_;
-				if(rm == last_){
-					last_=curr;
-				}
-				delete rm;
-			}
 
-		}
 	}
 
 	//O(n)
 	void removeBack(){
-		if(last_){
-			Node* rm =last_;
-			if(first_==last_){
-				delete rm;
-				first_=last_=nullptr;				
-			}
-			else{
-				Node* curr=first_;
-				//make curr point to second last node
-				while(curr->next_!=rm){
-					curr=curr->next_;
-				}
-				curr_->next_=nullptr;
-				last_=curr;
-				delete rm;
-			}
-		}
+
 
 	}
 	iterator begin(){return iterator(first_,this);}
