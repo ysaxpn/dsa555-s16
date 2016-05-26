@@ -1,23 +1,25 @@
 
 //singly linked list
 template <typename T>
-class SList{
+class DList{
 	struct Node{
 		T data_;
 		Node* next_;
-		Node(const T& data, Node* next=nullptr){
+		Node* prev_;
+		Node(const T& data, Node* prev=nullptr, Node* next=nullptr){
 			data_=data;
 			next_=next;
+			prev_=prev;
 		}
 	};
 	Node* first_;
 	Node* last_;
 public:
 	class iterator{
-		friend class SList;
+		friend class DList;
 		Node* curr_;
-		SList* myList_;
-		iterator(Node* curr,SList* myList){
+		DList* myList_;
+		iterator(Node* curr,DList* myList){
 			curr_=curr;
 			myList_=myList;
 		}
@@ -47,6 +49,21 @@ public:
 			}
 			return old;
 		}
+		iterator operator--(){
+			//--x
+			if(curr_){
+				curr_=curr_->prev_;
+			}
+			return *this;
+		}
+		iterator operator--(int){
+			//--x
+			iterator old=*this;
+			if(curr_){
+				curr_=curr_->prev_;
+			}
+			return old;
+		}
 		bool operator==(const iterator& other){
 			return other.curr_==curr_;
 		}
@@ -55,7 +72,7 @@ public:
 		}
 	};
 	//creates empty linked list
-	SList(){
+	DList(){
 		first_=last_=nullptr;
 	}
 	//insert node at front of list and return iterator
