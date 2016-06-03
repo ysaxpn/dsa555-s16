@@ -52,13 +52,13 @@ public:
 	DList(const DList& other);
 
 	//move constructor
-	DList(const DList&& other);
+	DList(DList&& other);
 
 	//assignment operator
 	const DList& operator=(const DList& other);
 
 	//move operator
-	const DList& operator=(const DList&& other);
+	const DList& operator=(DList&& other);
 
 	//insert node at front of list and return iterator
 	//to that node
